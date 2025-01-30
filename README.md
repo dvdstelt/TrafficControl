@@ -22,7 +22,7 @@ The following projects need to be run, everything will run automatically. No nee
 - VehicleRegistration  
   Randomly generates fake vehicles, persons and email addresses.
 
-It sends email messages to an SMTP server running on localhost:25. To test this, it is recommended to use [smtp4dev](https://github.com/rnwood/smtp4dev) which allows you to see incoming emails.
+It sends email messages to an SMTP server running on `localhost:25`. To test this, it is recommended to use [smtp4dev](https://github.com/rnwood/smtp4dev) which allows you to see incoming emails.
 When no SMTP server is running, those messages will fail and end up in the error queue. Which is the expected scenario, so the operations team can fix the issue and replay all those messages using ServicePulse.
 
 ## Disclaimer
