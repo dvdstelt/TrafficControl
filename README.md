@@ -17,7 +17,7 @@ The following projects need to be run, everything will run automatically. No nee
   Sends messages to simulate vehicles driving through a zone.
 - TrafficControl  
   Keeps track of cars entering and leaving a zone, calculating their average speed.
-- FineCollection
+- FineCollection  
   Makes sure to fine people. All it does right now is send an email.
 - VehicleRegistration  
   Randomly generates fake vehicles, persons and email addresses.
