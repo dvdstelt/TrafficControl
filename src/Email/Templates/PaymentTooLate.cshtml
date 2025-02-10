@@ -1,0 +1,43 @@
+﻿@model dynamic
+@{
+var dueDate = DateTime.Now.AddSeconds(10);
+var collectionDate = DateTime.Now.AddSeconds(15);
+}
+
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 30px;">
+    <div style="background: #dc3545; color: white; padding: 20px; border-radius: 8px 8px 0 0;">
+        <h1 style="margin:0; font-size: 24px;">🚨 URGENT: Final Payment Notice</h1>
+    </div>
+
+    <div style="background: white; padding: 25px; border-radius: 0 0 8px 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <p style="font-size: 16px; color: #343a40;">Dear @Model.FirstName @Model.LastName,</p>
+
+        <div style="background: #dc3545; color: white; padding: 15px; border-radius: 4px; margin: 20px 0;">
+            <p style="margin: 0; font-size: 18px;">⚠️ Your payment is <strong>OVERDUE</strong></p>
+            <p style="margin: 5px 0 0 0;">Vehicle: @Model.LicensePlate | Violation: @Model.ViolationInKmh km/h</p>
+        </div>
+
+        <div style="background: #ffc107; padding: 15px; border-radius: 4px; margin: 20px 0;">
+            <p style="margin: 0; font-weight: bold;">⏰ Time Remaining: 10 seconds</p>
+            <p style="margin: 5px 0 0 0;">Due by: @dueDate.ToString("HH:mm:ss")</p>
+        </div>
+
+        <div style="background: #f1f3f5; border-left: 4px solid #dc3545; padding: 15px; margin: 20px 0;">
+            <p style="font-size: 20px; margin: 0;">
+                <strong>Amount Due: €@Model.Fine.ToString("N2")</strong>
+            </p>
+        </div>
+
+        <div style="background: #343a40; color: white; padding: 15px; border-radius: 4px; margin: 20px 0;">
+            <p style="margin: 0;">⚠️ IMPORTANT NOTICE</p>
+            <p style="margin: 10px 0 0 0;">If payment is not received by @collectionDate.ToString("HH:mm:ss"), your case will be transferred to our debt collection agency. ALL additional costs will be charged to you.</p>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #dee2e6; margin: 20px 0;">
+
+        <p style="color: #6c757d; font-size: 14px;">
+            Regards,<br>
+            Traffic Enforcement Department
+        </p>
+    </div>
+</div>
