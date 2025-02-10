@@ -5,15 +5,7 @@ using TrafficControl.Messages.Events;
 
 namespace TrafficControl.Handlers;
 
-public class VehicleTrackingData : ContainSagaData
-{
-    public string LicensePlate { get; set; } = null!;
-    public int ZoneId { get; set; }
-    public DateTime EntryTimestamp { get; set; }
-    public DateTime ExitTimestamp { get; set; }
-}
-
-public class VehicleTrackingPolicy(ILogger<VehicleTrackingPolicy> logger) : Saga<VehicleTrackingData>,
+public class VehicleTrackingPolicy(ILogger<VehicleTrackingPolicy> logger) : Saga<VehicleTrackingPolicy.VehicleTrackingData>,
     IAmStartedByMessages<VehicleEntering>,
     IAmStartedByMessages<VehicleExiting>
 {
@@ -23,8 +15,6 @@ public class VehicleTrackingPolicy(ILogger<VehicleTrackingPolicy> logger) : Saga
             .ToMessage<VehicleEntering>(msg => msg.LicensePlate)
             .ToMessage<VehicleExiting>(msg => msg.LicensePlate);
     }
-
-    private const int SpeedLimit = 100;
 
     public async Task Handle(VehicleEntering message, IMessageHandlerContext context)
     {
@@ -62,7 +52,7 @@ public class VehicleTrackingPolicy(ILogger<VehicleTrackingPolicy> logger) : Saga
 
         logger.LogInformation("[{ExitTimestamp:HH:mm:ss}] Vehicle {MessageLicensePlate} exited zone {RoadName}. Speed: {Speed} km/h", Data.ExitTimestamp, Data.LicensePlate, roadData.RoadName, speed);
 
-        if (speed > SpeedLimit)
+        if (speed > roadData.SpeedLimit)
         {
             logger.LogInformation($"  That is too fast, let's notify FineCollection.");
 
@@ -80,4 +70,12 @@ public class VehicleTrackingPolicy(ILogger<VehicleTrackingPolicy> logger) : Saga
 
     private static double CalculateSpeed(TimeSpan duration, double roadLength) =>
         Math.Round(roadLength / duration.TotalHours, 1);
+
+    public class VehicleTrackingData : ContainSagaData
+    {
+        public string LicensePlate { get; set; } = null!;
+        public int ZoneId { get; set; }
+        public DateTime EntryTimestamp { get; set; }
+        public DateTime ExitTimestamp { get; set; }
+    }
 }

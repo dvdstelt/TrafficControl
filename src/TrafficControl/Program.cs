@@ -1,8 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Shared;
+using TrafficControl.Police;
+using VehicleRegistrationMessages.Messages;
 
 const string endpointName = "TrafficControl";
 
@@ -25,9 +28,16 @@ var host = Host.CreateDefaultBuilder(args)
     .UseNServiceBus(context =>
     {
         var endpointConfiguration = new EndpointConfiguration(endpointName);
-        endpointConfiguration.Configure();
+        endpointConfiguration.Configure(r =>
+        {
+            r.RouteToEndpoint(typeof(VehicleDetailsRequest).Assembly, "VehicleRegistration");
+        });
 
         return endpointConfiguration;
-    }).Build();
+    }).ConfigureServices(services =>
+    {
+        services.AddPoliceIntegration("http://localhost:5225/");
+    })
+    .Build();
 
 host.Run();

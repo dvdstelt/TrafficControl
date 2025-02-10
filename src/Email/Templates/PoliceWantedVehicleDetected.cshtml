@@ -1,0 +1,47 @@
+﻿@model dynamic
+
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 30px;">
+    <div style="background: #dc3545; color: white; padding: 20px; border-radius: 8px 8px 0 0;">
+        <h1 style="margin:0; font-size: 24px;">🚨 PRIORITY ALERT: Vehicle of Interest Detected</h1>
+    </div>
+
+    <div style="background: white; padding: 25px; border-radius: 0 0 8px 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <div style="background: #dc3545; color: white; padding: 15px; border-radius: 4px; margin: 20px 0;">
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 5px; font-weight: bold;">LICENSE PLATE:</td>
+                    <td style="padding: 5px;"><strong>@Model.LicensePlate</strong></td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px; font-weight: bold;">LOCATION:</td>
+                    <td style="padding: 5px;">@Model.Road</td>
+                </tr>
+                <tr>
+                    <td style="padding: 5px; font-weight: bold;">TIME DETECTED:</td>
+                    <td style="padding: 5px;">@Model.TimeSeen.ToString("dd-MM-yyyy HH:mm:ss")</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="background: #343a40; color: white; padding: 15px; border-radius: 4px;">
+            <p style="margin: 0;">⚠️ This is an automated alert from the Traffic Control System</p>
+            <p style="margin: 10px 0 0 0;">The above vehicle, flagged in your systems as a vehicle of interest, has been detected by our traffic monitoring network.</p>
+        </div>
+
+        <div style="margin: 20px 0; padding: 15px; background: #f1f3f5; border-radius: 4px;">
+            <p style="margin: 0; color: #495057;">
+                <svg style="width: 16px; height: 16px; margin-right: 5px;" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+                This information is confidential and intended only for law enforcement.
+            </p>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #dee2e6; margin: 20px 0;">
+
+        <p style="color: #6c757d; font-size: 14px;">
+            Traffic Control System<br>
+            Automated Vehicle Detection Network
+        </p>
+    </div>
+</div>

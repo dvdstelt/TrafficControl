@@ -1,0 +1,20 @@
+@PoliceApi_HostAddress = http://localhost:5225
+
+GET {{PoliceApi_HostAddress}}/api/police/wanted-plates
+Accept: application/json
+
+###
+
+GET {{PoliceApi_HostAddress}}/api/police/simulation-plates
+Accept: application/json
+
+###
+
+POST {{PoliceApi_HostAddress}}/api/police/vehicle-detections
+Content-Type: application/json
+
+{
+  "licensePlate": "AB-123-C",
+  "roadId": "HIGHWAY-A12-KM50",
+  "timestamp": "2025-02-07T14:30:00Z"
+}

@@ -1,15 +1,16 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Email;
+using Email.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RazorLight;
 using Serilog;
 using Shared;
-using Simulation;
-using TrafficControl.Messages.Commands;
 
-const string endpointName = "Simulation";
+const string endpointName = "Email";
 
-_ = new ConfigurationBuilder().Configure(args).Build();
+var configuration = new ConfigurationBuilder().Configure(args).Build();
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureLogging(context =>
@@ -28,23 +29,25 @@ var host = Host.CreateDefaultBuilder(args)
     .UseNServiceBus(_ =>
     {
         var endpointConfiguration = new EndpointConfiguration(endpointName);
-        endpointConfiguration.Configure(route =>
-        {
-            route.RouteToEndpoint(typeof(VehicleEntering).Assembly, "TrafficControl");
-        });
-        endpointConfiguration.SendOnly();
+        endpointConfiguration.Configure();
 
         return endpointConfiguration;
     })
-    .ConfigureServices(services =>
+    .ConfigureServices((_, services) =>
     {
-        services.AddHostedService<TrafficSimulator>();
+        services.Configure<SmtpSettings>(configuration.GetSection("Smtp"));
+        services.AddTransient<EmailService>();
 
-        services.AddHttpClient<PoliceApiClient>(client =>
+        services.AddSingleton<RazorLightEngine>(_ =>
         {
-            client.BaseAddress = new Uri("http://localhost:5225/");
+            var engine = new RazorLightEngineBuilder()
+                .UseFileSystemProject(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates"))
+                .UseMemoryCachingProvider()
+                .Build();
+
+            return engine;
         });
-    })
-    .Build();
+
+    }).Build();
 
 await host.RunAsync();

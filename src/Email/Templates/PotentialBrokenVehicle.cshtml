@@ -1,0 +1,30 @@
+﻿@model dynamic
+
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 30px;">
+    <div style="background: #ffc107; color: #343a40; padding: 20px; border-radius: 8px 8px 0 0;">
+        <h1 style="margin:0; font-size: 24px;">🚗 Potential Vehicle Breakdown Alert</h1>
+    </div>
+
+    <div style="background: white; padding: 25px; border-radius: 0 0 8px 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 4px; margin-bottom: 20px;">
+            <h3 style="margin: 0 0 10px 0;">Vehicle Details:</h3>
+            <p style="margin: 5px 0;">License Plate: <strong>@Model.LicensePlate</strong></p>
+            <p style="margin: 5px 0;">Make/Model: <strong>@Model.Brand @Model.Model</strong></p>
+            <p style="margin: 5px 0;">Road: <strong>@Model.RoadName</strong></p>
+            <p style="margin: 5px 0;">Entry Time: <strong>@Model.Entering.ToString("HH:mm:ss")</strong></p>
+        </div>
+
+        <p>The vehicle has been detected in the trajectory control area for an extended period, suggesting a possible breakdown or incident requiring assistance.</p>
+
+        <div style="background: #e9ecef; padding: 15px; border-radius: 4px;">
+            <p style="margin: 0;">🔍 Please dispatch road assistance to investigate and provide any necessary support.</p>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #dee2e6; margin: 20px 0;">
+
+        <p style="color: #6c757d; font-size: 14px;">
+            Traffic Control System<br>
+            Automated Incident Detection
+        </p>
+    </div>
+</div>

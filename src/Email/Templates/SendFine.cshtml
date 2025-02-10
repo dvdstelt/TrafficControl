@@ -1,0 +1,40 @@
+﻿@model dynamic
+@{
+var speedExcess = Model.ViolationSpeed - 50; // Assuming 50 km/h zone
+}
+
+<div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f8f9fa; padding: 30px;">
+    <div style="background: #dc3545; color: white; padding: 20px; border-radius: 8px 8px 0 0;">
+        <h1 style="margin:0; font-size: 24px;">⚠️ Traffic Violation Notice</h1>
+    </div>
+
+    <div style="background: white; padding: 25px; border-radius: 0 0 8px 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <p style="font-size: 16px; color: #343a40;">Dear @Model.FirstName @Model.LastName,</p>
+
+        <p>Our traffic monitoring system has detected that your vehicle (<strong>@Model.LicensePlate</strong>) was traveling at
+            <span style="color: #dc3545; font-weight: bold;">@Model.ViolationSpeed km/h</span>.</p>
+
+        <div style="background: #f1f3f5; border-left: 4px solid #dc3545; padding: 15px; margin: 20px 0;">
+            <div style="font-size: 20px; color: #343a40; margin-bottom: 10px;">
+                <strong>Fine Amount: €@Model.Fine.ToString("N2")</strong>
+            </div>
+            <p style="margin: 0; color: #666;">Payment will be processed using card ****@Model.LastFourDigits</p>
+        </div>
+
+        <div style="margin: 20px 0; padding: 15px; background: #e9ecef; border-radius: 4px;">
+            <p style="margin:0; color: #495057;">
+                <svg style="width: 16px; height: 16px; margin-right: 5px;" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+                Contest this violation? Reply within 14 days.
+            </p>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid #dee2e6; margin: 20px 0;">
+
+        <p style="color: #6c757d; font-size: 14px;">
+            Best regards,<br>
+            Traffic Enforcement Department
+        </p>
+    </div>
+</div>
