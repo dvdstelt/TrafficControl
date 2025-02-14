@@ -9,6 +9,10 @@
 This repository contains a sample application that simulates a traffic-control system using NServiceBus.
 It is based purely of the idea from Edwin van Wijk his [sample application using Dapr](https://github.com/EdwinVW/dapr-traffic-control/). Attending his Dapr workshop, I found the case quite entertaining and wanted to build my own version. No code was copied, everything was created by hand. And maybe a little Claude AI.
 
+## Architecture
+
+![Architectural diagram](/docs/diagram.svg)
+
 ## Run the demo
 
 The following projects need to be run, everything will run automatically. No need to install anything.
