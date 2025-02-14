@@ -4,6 +4,7 @@
 | -------------------- | ------------------------- |
 | Language             | C#                        |
 | Platform             | .NET 8                    |
+| Main Library         | NServiceBus               |
 | Environment          | Self hosted or Docker     |
 
 This repository contains a sample application that simulates a traffic-control system using NServiceBus.
@@ -11,7 +12,35 @@ It is based purely of the idea from Edwin van Wijk his [sample application using
 
 ## Architecture
 
-![Architectural diagram](/docs/diagram.svg)
+The main goal is to demonstrate messaging with NServiceBus in the Event Driven Architecture style.
+
+The demo demonstrates how to deal with messages and how to structure your system into different components (NServiceBus endpoints) that each serve their own purpose. When to use commands, events, and how to use the request/response pattern.
+
+### Diagram
+
+The architecture is made up of the following components
+
+- **Simulation** is the component that simulates the creation of messages that would normally arrive after cameras detect vehicles
+- **TrafficControl** is the heart of the system.
+  - It keeps track of cars entering and exiting a zone and calculates the speed based on how much time it took them  
+    If the average speed is too high, it will inform FineCollection
+  - It keeps track of cars that don't leave for a long period of time and likely have broken down  
+  - It keeps track of cars that the police wants to get notified about  
+- **FineCollection**
+  - This will send a message to email to make sure a fine is collected
+  - It simulates that if after 10 seconds, the payment wasn't done, it will send a reminder
+- **VehicleRegistration** is an endpoint that has information about vehicles and their owners based on license plates
+  It will randomly create names, car brand and model and more
+- **PoliceAPI** is an HTTP WebApi
+  - It provides a list if hashed license plates
+  - If a license plate is recognized, it should be reported that it has been seen
+- **Email** is an endpoint for sending emails
+  - Every message that results in an email is an event
+  - Use [smtp4dev](https://github.com/rnwood/smtp4dev) to see emails in its desktop client
+
+<p align="center">
+  <img src="/docs/diagram.svg" width=70% />
+</p>
 
 ## Run the demo
 
